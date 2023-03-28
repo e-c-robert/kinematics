@@ -1,52 +1,10 @@
-import math
+#import guiWindow so that you can get the entry box inputs from the window wihtout having the 
+#code in this file directly 
 import guiWindow as g
+import calculations as c
 import tkinter as tk
 
-def m_xf(key1):
-    x1,v1,th,time,forcew,mass = key1
-    a = float(forcew)/float(mass)
-    rad = float(th)*(180/math.pi)
-    x2 = float(x1)+ (float(v1)*float(time)*math.cos(rad)) + (0.5*a*(float(time)**2))
-    return x2
-
-
-def m_yf(key2):
-    y1,v2,the,time1 = key2
-    y2 = float(y1)+ (float(v2)*float(the)*float(time1)) +(-0.5*9.81*(float(time1)**2))
-    return y2 
-   
-def m_m(key3):
-    fw1,t1,xf1,xi1,vi1,th1 = key3
-    denom = float(fw1)*(float(t1)**2)*0.5
-    rad = float(th1)*(180/math.pi)
-    num = float(xf1)-float(xi1) - (float(vi1)*math.cos(rad) *float(t1))
-    m = num/denom
-    return m 
-
-def m_t(key4):
-    vi,theta,fw,m,sf,si,s = key4
-    #T = -(vi)*cos(th) + sqrt((vi*cos(th))^2+2*(a*(X))/(fw/m)
-    rad = float(theta)*(180/math.pi)
-    if s == 'x':
-        a = 0.5*(float(fw)/float(m))
-        b = -float(vi)*math.cos(rad)
-    elif s == 'y': 
-        a = -0.5*9.81
-        b = -float(vi)*math.sin(rad)
-    c = float(sf)-float(si)
-    squ = (b**2) + (4*a*c)
-    square = math.sqrt(squ)
-    t1 = (b+square)/(2*a)
-    t2 = (b-square)/(2*a)
-    if t1<0 and t2>0:
-        return t2
-    elif t2<0 and t1>0 :
-        return t1
-    elif t2<t1 and t2>0 :
-        return t2
-    elif t1<t2 and t1>0 :
-        return t1
-    
+#main function 
 def check():
     #gets inputs from all boxes 
     vi = g.vientry.get()
@@ -60,9 +18,6 @@ def check():
     fw = g.wentry.get()
     m = g.mentry.get()
 
-    global allvar
-    global strallvar
-    
     #list of all variables and their string form so that i cna call the correct index in places 
     allvar = [vi, vf, theta, xi, xf, yi, yf, t, fw, m]
     strallvar = ['vi', 'vf','theta','xi','xf','yi','yf','t','fw','m']
@@ -70,6 +25,7 @@ def check():
     #emplty list of inputs to be added in the next for loop 
     inputs = []
     
+    #find count for print statments later 
     fcount = 0
     
     #adds to the input list 
@@ -80,84 +36,110 @@ def check():
         elif val != '':
             inputs.append(allvar[index])
         else :
-            inputs.append('')
-          
+            inputs.append('')       
     
-    #list if there is a independent variable that needs to be solved for first
-    backtrack = []
+    # #list if there is a independent variable that needs to be solved for first
+    # backtrack = []
 
-    global strrequires
-    global requires
-    global functions 
-    strrequires = {'vi': [], 
-                   'vf': [], 
-                   'theta': [], 
-                   'xi': [], 
-                   'xf':['xi','vi','theta','t','fw','m', 6],
-                   'yi': [],
-                   'yf':['yi','vi','theta','t',4], 
-                   't': ['vi','theta','fw','m','xf','xi', 6],
-                   # ,['vi','theta','fw','m','yf','yi', 6]],
-                   'fw':[],
-                   'm':['fw','t','xf','xi','vi','theta',6]}
-    requires = {'vi': [], 
-                'vf': [], 
-                'theta': [], 
-                'xi': [], 
-                'xf':[xi,vi,theta,t,fw,m],
-                'yi': [],
-                'yf':[yi,vi,theta,t], 
-                't': [vi,theta,fw,m,xf,xi, 'x'],
-                      # [vi,theta,fw,m,yf,yi, 'y']],
-                'fw':[],
-                'm':[fw,t,xf,xi,vi,theta]}
+    #all dictionaries and lists are in the same order (so they have the same index)
+    #even tho dictionaries are unorder, this was done for the sake of those coding 
+
+    #string version of all the required variables and the number of required inputs 
+    #dictionary -> keys: the missing variable ('find') : list of all alternative equations
+    #inside list is a list of the required variables for that alternative
+    strrequires = {'vi': [[]], 
+                   'vf': [[]], 
+                   'theta': [[]], 
+                   'xi': [[]], 
+                   'xf':[['xi','vi','theta','t','fw','m', 6]],
+                   'yi': [[]],
+                   'yf':[['yi','vi','theta','t',4]], 
+                   't': [['vi','theta','fw','m','xf','xi', 6],
+                         ['vi','theta','yf','yi', 4]],
+                   'fw':[['xf','xi','vi','theta','t','m', 6]],
+                   'm':[['fw','t','xf','xi','vi','theta',6]]}
+    #variable version of previous dictionary 
+    #created so i can unpack the list
+    #instead of a count, there is a unique marker for that alt equation so that
+    #we can create an if statement with that marker to toggle between the variations in the function itself
+    requires = {'vi': [[]], 
+                'vf': [[]], 
+                'theta': [[]], 
+                'xi': [[]], 
+                'xf':[[xi,vi,theta,t,fw,m]],
+                'yi': [[]],
+                'yf':[[yi,vi,theta,t]], 
+                't': [[vi,theta,fw,m,xf,xi, 'x'],
+                      [vi,theta,yf,yi, 'y']],
+                'fw':[[xf,xi,vi,theta,t,m]],
+                'm':[[fw,t,xf,xi,vi,theta]]}
+    #functions, alternative equations for each variable will be found and done within 
+    #the function 
     functions = ['', 
                  '', 
                  '', 
                  '', 
-                 m_xf,
+                 c.m_xf,
                  '',
-                 m_yf, 
-                 m_t,
-                 '',
-                 m_m]
+                 c.m_yf, 
+                 c.m_t,
+                 c.m_fw,
+                 c.m_m]
+    
+    #for loop : goes through the inputs once
     for ind1, value1, in enumerate(inputs):
+        #if there is a variable to find 
         if value1 == 'find':
+            #find key from dictionary and all the alt equations 
             key1 = strrequires[strallvar[ind1]]
-            count1 = 0
-            for i,v in enumerate(inputs):
-                if strallvar[i] in key1 and v != '' and v!='find' and v!= 'expected':
-                    count1 += 1
-                elif strallvar[i] in key1 and v == 'find' and i != ind1: 
-                    backtrack.append(i)
-                    break
-                if count1 != key1[-1] and backtrack != [] and fcount==2:
-                    inputs[ind1] = 'expected'
-                    continue 
-            if fcount == 2 and count1 == key1[-1]:
-                ans = functions[ind1](requires[strallvar[ind1]])
-                inputs[ind1] = functions[ind1](requires[strallvar[ind1]])
-                answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
-                                  fg = 'blue')
-                answer.grid(row = 16, column = 1, sticky = 'w')
-                fcount = 1
-            elif fcount == 1 and count1==key1[-1]:
-                ans = functions[ind1](requires[strallvar[ind1]])
-                inputs[ind1] = functions[ind1](requires[strallvar[ind1]])
-                answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
-                                  fg = 'blue')
-                answer.grid(row = 16, column = 0, sticky = 'w')
-                        
-    if backtrack != [] :
-        for place in backtrack :
-            key2 = strrequires[strallvar[ind1]]
-            count = 0
-            for i1,v1 in enumerate(inputs):
-                if strallvar[i1] in key2 and v1!= '' and v1!='find' and v1!= 'expected':
-                    count +=1
-            if count == key2[-1]:
-                ans1 = functions[place](requires[strallvar[place]])
-                inputs[place] = functions[place](requires[strallvar[place]])
-                answer = tk.Label(g.window, text=strallvar[place] + ': ' + str(ans1), 
-                                  fg = 'blue')
-                answer.grid(row = 16, column = 0, sticky = 'w')
+            #loop through alt equations 
+            for alt in range(len(key1)):
+                #count for found variables 
+                count1 = 0
+                #loops through the inputs again to check if needed variable are filled 
+                for i,v in enumerate(inputs):
+                    #if the varible is in the nth (alt) equation and it is not unknown and it is not empty 
+                    if strallvar[i] in key1[alt] and v != '' and v!='find' and v!= 'expected':
+                        count1 += 1
+                    # #if the variable is in the nth equation but is unknown and also not the 
+                    # #current one we are checking
+                    # elif strallvar[i] in key1[alt] and v == 'find' and i!=ind1 : 
+                    #     backtrack.append(i)
+                    #     break
+                    # #still have to thikn about how this is going to work j ignore for now 
+                    # if count1 != key1[alt][-1] and backtrack != [] and fcount==2:
+                    #     inputs[ind1] = 'expected'
+                    #     continue 
+                    #if there are 2 variables to solve for then this is moved off the to side 
+                    if fcount == 2 and count1 == key1[alt][-1]:
+                        #calculates the answer 
+                        ans = functions[ind1](requires[strallvar[ind1]][alt])
+                        #puts the answer in the input list for reference for next unknown 
+                        inputs[ind1] = functions[ind1](requires[strallvar[ind1]][alt])
+                        #displays the ans in the gui 
+                        answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
+                                          fg = 'blue')
+                        answer.grid(row = 16, column = 1, sticky = 'w')
+                        #changes f count so the display does not overlap  for next unknown
+                        fcount = 1
+                    elif fcount == 1 and count1==key1[alt][-1]:
+                        ans = functions[ind1](requires[strallvar[ind1]][alt])
+                        inputs[ind1] = functions[ind1](requires[strallvar[ind1]][alt])
+                        answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
+                                          fg = 'blue')
+                        answer.grid(row = 16, column = 0, sticky = 'w')
+                
+    # # still have to think about the logic here 
+    # if backtrack != [] :
+    #     for place in backtrack :
+    #         key2 = strrequires[strallvar[ind1]]
+    #         count = 0
+    #         for i1,v1 in enumerate(inputs):
+    #             if strallvar[i1] in key2 and v1!= '' and v1!='find' and v1!= 'expected':
+    #                 count +=1
+    #         if count == key2[-1]:
+    #             ans1 = functions[place](requires[strallvar[place]])
+    #             inputs[place] = functions[place](requires[strallvar[place]])
+    #             answer = tk.Label(g.window, text=strallvar[place] + ': ' + str(ans1), 
+    #                               fg = 'blue')
+    #             answer.grid(row = 16, column = 0, sticky = 'w')
