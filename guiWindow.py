@@ -14,7 +14,7 @@ def rip():
 #creates the window and its title
 window= tk.Tk()
 window.title('Projectile Motion')
-window.geometry('455x350')
+window.geometry('455x380')
 
 #instruction text placement
 inst = tk.Label(window, text='Please enter the following values.', 
@@ -113,11 +113,11 @@ u8 = tk.Label(window, text ='kg')
 u8.grid(row =11, column=2, sticky = 'w')
 
 #notes 
-note2 = tk.Label(window, text = 'Note: Force due to wind is always in the x-direction',
+note2 = tk.Label(window, text = 'Note: Force due to wind is always in the x-direction.\nCalculator works only with a max of 2 unknowns',
                  font = (None, 8))
-note2.grid(row=13, column = 0, columnspan = 2,sticky = 'w')
+note2.grid(row=13, column = 0, columnspan = 2,rowspan = 2, sticky = 'w')
 
 
 #button to close the program
 close = tk.Button(window, text='Close', command=rip)
-close.grid(row=14, column=4, sticky = 'e')
+close.grid(row=15, column=4, sticky = 'e')
