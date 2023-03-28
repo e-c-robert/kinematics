@@ -42,7 +42,7 @@ xf.grid(row=6, column=0, sticky = 'e')
 u2 = tk.Label(window, text ='m')
 u2.grid(row =6, column=2, sticky = 'w')
 
-#velocity entry placement
+#initial velocity entry placement
 vientry = tk.Entry(window, width= 30)
 vientry.grid(row=2, column=1)
 vi = tk.Label(window, text='inital velocity')
@@ -50,7 +50,7 @@ vi.grid(row=2, column=0, sticky = 'e')
 u3 = tk.Label(window, text ='m/s')
 u3.grid(row =2, column=2, sticky = 'w')
 
-#velocity entry placement
+#final velocity entry placement
 vfentry = tk.Entry(window, width= 30)
 vfentry.grid(row=3, column=1)
 vf = tk.Label(window, text='final velocity')
@@ -91,7 +91,7 @@ time.grid(row=9, column=0, sticky = 'e')
 u7 = tk.Label(window, text ='sec')
 u7.grid(row =9, column=2, sticky = 'w')
 
-#wind entry 
+#wind entry (x-comp only)
 wentry = tk.Entry(window, width= 30)
 wentry.grid(row=10, column=1)
 wind = tk.Label(window, text='force due to wind')
