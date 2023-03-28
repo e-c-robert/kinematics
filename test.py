@@ -1,7 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 22 15:06:53 2023
+import guiWindow as g
+import functions as f
+import tkinter as tk
 
-@author: Emma Robert
-"""
 
+
+#button to calulate answer
+#need to create the funtion that would actually calculate everything and insert answer
+calculate = tk.Button(g.window, text='Calculate', command = f.check)
+calculate.grid(row=13, column=4, sticky = 'e', pady = 10)
+
+
+g.window.mainloop()
