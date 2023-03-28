@@ -112,14 +112,12 @@ mass.grid(row=11, column=0, sticky = 'e')
 u8 = tk.Label(window, text ='kg')
 u8.grid(row =11, column=2, sticky = 'w')
 
+#notes 
+note2 = tk.Label(window, text = 'Note: Force due to wind is always in the x-direction',
+                 font = (None, 8))
+note2.grid(row=13, column = 0, columnspan = 2,sticky = 'w')
 
-#button to calulate answer
-#need to create the funtion that would actually calculate everything and insert answer
-calculate = tk.Button(window, text='Calculate')
-calculate.grid(row=14, column=4, sticky = 'e', pady = 10)
 
 #button to close the program
 close = tk.Button(window, text='Close', command=rip)
-close.grid(row=18, column=4, sticky = 'e')
-
-window.mainloop()
+close.grid(row=14, column=4, sticky = 'e')
