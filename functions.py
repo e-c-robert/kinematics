@@ -4,6 +4,8 @@ import guiWindow as g
 import calculations as c
 import tkinter as tk
 
+#finds the computers machine epsilon so we can actually get a 0 answer 
+#found this out the hard way 
 def fuck():
     ep = 1
     while True :
@@ -47,9 +49,6 @@ def check():
             inputs.append(allvar[index])
         else :
             inputs.append('')       
-    
-    # #list if there is a independent variable that needs to be solved for first
-    # backtrack = []
 
     #all dictionaries and lists are in the same order (so they have the same index)
     #even tho dictionaries are unorder, this was done for the sake of those coding 
@@ -110,21 +109,13 @@ def check():
                 #loops through the inputs again to check if needed variable are filled 
                 for i,v in enumerate(inputs):
                     #if the varible is in the nth (alt) equation and it is not unknown and it is not empty 
-                    if strallvar[i] in key1[alt] and v != '' and v!='find' and v!= 'expected':
+                    if strallvar[i] in key1[alt] and v != '' and v!='find':
                         count1 += 1
-                    # #if the variable is in the nth equation but is unknown and also not the 
-                    # #current one we are checking
-                    # elif strallvar[i] in key1[alt] and v == 'find' and i!=ind1 : 
-                    #     backtrack.append(i)
-                    #     break
-                    # #still have to thikn about how this is going to work j ignore for now 
-                    # if count1 != key1[alt][-1] and backtrack != [] and fcount==2:
-                    #     inputs[ind1] = 'expected'
-                    #     continue 
                     #if there are 2 variables to solve for then this is moved off the to side 
                     if fcount == 2 and count1 == key1[alt][-1]:
                         #calculates the answer 
                         ans = functions[ind1](requires[strallvar[ind1]][alt])
+                        #if the found answer is less than the machine epsilon, ans is 0, yay
                         if ans <= fuck(): 
                             ans = 0
                         #puts the answer in the input list for reference for next unknown 
@@ -136,25 +127,50 @@ def check():
                         #changes f count so the display does not overlap  for next unknown
                         fcount = 1
                     elif fcount == 1 and count1==key1[alt][-1]:
-                        ans = functions[ind1](requires[strallvar[ind1]][alt])
+                        #find the keys for the variables
+                        #because this would be on the second theoretical run 
+                        #there needs to be an if statement if this unknwon is dependent on the rpevious 
+                        #because im (emma) is stupid and the calculation functions dont pull directly from the 
+                        #inputs list, the if statement is needed
+                        key2 = requires[strallvar[ind1]][alt]
+                        #loops through the values of the needed variables
+                        for inde, valu in enumerate(key2):
+                            if valu == 'find': 
+                                #changes the previously unknown to the found ans 
+                                key2[inde]=ans
+                        #now that the key is changed to the correct ans, we can overwrite that 
+                        #variable with this answer yay!
+                        ans = functions[ind1](key2)
                         if ans <= fuck(): 
                             ans = 0
                         inputs[ind1] = ans
                         answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
                                           fg = 'blue')
                         answer.grid(row = 16, column = 0, sticky = 'w')
-                
-    # # still have to think about the logic here 
-    # if backtrack != [] :
-    #     for place in backtrack :
-    #         key2 = strrequires[strallvar[ind1]]
-    #         count = 0
-    #         for i1,v1 in enumerate(inputs):
-    #             if strallvar[i1] in key2 and v1!= '' and v1!='find' and v1!= 'expected':
-    #                 count +=1
-    #         if count == key2[-1]:
-    #             ans1 = functions[place](requires[strallvar[place]])
-    #             inputs[place] = functions[place](requires[strallvar[place]])
-    #             answer = tk.Label(g.window, text=strallvar[place] + ': ' + str(ans1), 
-    #                               fg = 'blue')
-    #             answer.grid(row = 16, column = 0, sticky = 'w')
+           
+    #bc im (emma) is lazy and dont want to figure out a different way...
+    #this checks to see if there is still an unknown 
+    #this unknown would have been in the inputs list before the previously solved one
+    #BUT to solve this, the previously solved one had to be done first so rip 
+    #bitch is j copied pasted from above 
+    if 'find' in inputs :
+        for ind, value, in enumerate(inputs):
+            if value == 'find':
+                key1 = strrequires[strallvar[ind]]
+                for alt in range(len(key1)):
+                    count1 = 0
+                    for i,v in enumerate(inputs):
+                        if strallvar[i] in key1[alt] and v != '' and v!='find':
+                            count1 += 1
+                        if count1 == key1[alt][-1]: 
+                            key2 = requires[strallvar[ind]][alt]
+                            for inde, valu in enumerate(key2):
+                                if valu == 'find': 
+                                    key2[inde]=ans
+                            ans = functions[ind](key2)
+                            if ans <= fuck(): 
+                                ans = 0
+                            inputs[ind] = ans
+                            answer = tk.Label(g.window, text=strallvar[ind] + ': ' + str(ans), 
+                                              fg = 'blue')
+                            answer.grid(row = 16, column = 0, sticky = 'w')
