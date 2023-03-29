@@ -4,7 +4,7 @@ import math
 def m_xf(key1):
     x1,v1,th,time,forcew,mass = key1
     a = float(forcew)/float(mass)
-    rad = float(th)*(180/math.pi)
+    rad = float(th)*(math.pi/180)
     x2 = float(x1)+ (float(v1)*float(time)*math.cos(rad)) + (0.5*a*(float(time)**2))
     return x2
 
@@ -16,7 +16,7 @@ def m_yf(key2):
 def m_m(key3):
     fw1,t1,xf1,xi1,vi1,th1 = key3
     denom = float(fw1)*(float(t1)**2)*0.5
-    rad = float(th1)*(180/math.pi)
+    rad = float(th1)*(math.pi/180)
     num = float(xf1)-float(xi1) - (float(vi1)*math.cos(rad) *float(t1))
     m = num/denom
     return m 
@@ -26,12 +26,12 @@ def m_t(key4):
     #the direction changes the trig and acceleration 
     if key4[-1] == 'x':
         vi,theta,fw,m,sf,si,s = key4
-        rad = float(theta)*(180/math.pi)
+        rad = float(theta)*(math.pi/180)
         a = 0.5*(float(fw)/float(m))
         b = -float(vi)*math.cos(rad)
     elif key4[-1] == 'y': 
         vi,theta, sf,si,s = key4
-        rad = float(theta)*(180/math.pi)
+        rad = float(theta)*(math.pi/180)
         a = -0.5*9.81
         b = -float(vi)*math.sin(rad)
     c = float(sf)-float(si)
@@ -52,7 +52,25 @@ def m_t(key4):
 def m_fw(key5):
     xf,xi,vi,th,t,m = key5
     term1 = float(xf)-float(xi)
-    rad = float(th)*(180/math.pi)
+    rad = float(th)*(math.pi/180)
     term2 = float(vi)*math.cos(rad)*float(t)
     fw = (term1-term2)*2*float(m)*(float(t)**(-2))
     return fw
+
+def m_xi(key):
+    vi,th,t,fw,m,xf = key 
+    a = float(fw)/float(m)
+    rad = float(th)*(math.pi/180)
+    term1 = -float(vi)*math.cos(rad)*float(t)
+    term2 = -0.5*a*(float(t)**2)
+    xi = term1 +term2 +float(xf)
+    return xi 
+
+def m_yi(key):
+    vi,th,t,yf = key 
+    a = -9.81
+    rad = float(th)*(math.pi/180)
+    term1 = -float(vi)*math.sin(rad)*float(t)
+    term2 = -0.5*a*(float(t)**2)
+    yi = term1 +term2 +float(yf)
+    return yi 
