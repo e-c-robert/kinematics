@@ -4,6 +4,16 @@ import guiWindow as g
 import calculations as c
 import tkinter as tk
 
+def fuck():
+    ep = 1
+    while True :
+        if ep+1 <=1:
+            ep *= 2
+            break
+        else:
+            ep /= 2
+    return ep 
+
 #main function 
 def check():
     #gets inputs from all boxes 
@@ -50,9 +60,9 @@ def check():
     strrequires = {'vi': [[]], 
                    'vf': [[]], 
                    'theta': [[]], 
-                   'xi': [[]], 
+                   'xi': [['vi','theta','t','fw','m','xf', 6]], 
                    'xf':[['xi','vi','theta','t','fw','m', 6]],
-                   'yi': [[]],
+                   'yi': [['vi','theta','t', 'yf',4]],
                    'yf':[['yi','vi','theta','t',4]], 
                    't': [['vi','theta','fw','m','xf','xi', 6],
                          ['vi','theta','yf','yi', 4]],
@@ -61,13 +71,14 @@ def check():
     #variable version of previous dictionary 
     #created so i can unpack the list
     #instead of a count, there is a unique marker for that alt equation so that
-    #we can create an if statement with that marker to toggle between the variations in the function itself
+    #we can create an if statement with that marker to toggle between the variations in the 
+    # function itself
     requires = {'vi': [[]], 
                 'vf': [[]], 
                 'theta': [[]], 
-                'xi': [[]], 
+                'xi': [[vi,theta,t,fw,m,xf]], 
                 'xf':[[xi,vi,theta,t,fw,m]],
-                'yi': [[]],
+                'yi': [[vi,theta,t,yf]],
                 'yf':[[yi,vi,theta,t]], 
                 't': [[vi,theta,fw,m,xf,xi, 'x'],
                       [vi,theta,yf,yi, 'y']],
@@ -78,9 +89,9 @@ def check():
     functions = ['', 
                  '', 
                  '', 
-                 '', 
+                 c.m_xi, 
                  c.m_xf,
-                 '',
+                 c.m_yi,
                  c.m_yf, 
                  c.m_t,
                  c.m_fw,
@@ -114,8 +125,10 @@ def check():
                     if fcount == 2 and count1 == key1[alt][-1]:
                         #calculates the answer 
                         ans = functions[ind1](requires[strallvar[ind1]][alt])
+                        if ans <= fuck(): 
+                            ans = 0
                         #puts the answer in the input list for reference for next unknown 
-                        inputs[ind1] = functions[ind1](requires[strallvar[ind1]][alt])
+                        inputs[ind1] = ans
                         #displays the ans in the gui 
                         answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
                                           fg = 'blue')
@@ -124,7 +137,9 @@ def check():
                         fcount = 1
                     elif fcount == 1 and count1==key1[alt][-1]:
                         ans = functions[ind1](requires[strallvar[ind1]][alt])
-                        inputs[ind1] = functions[ind1](requires[strallvar[ind1]][alt])
+                        if ans <= fuck(): 
+                            ans = 0
+                        inputs[ind1] = ans
                         answer = tk.Label(g.window, text=strallvar[ind1] + ': ' + str(ans), 
                                           fg = 'blue')
                         answer.grid(row = 16, column = 0, sticky = 'w')
