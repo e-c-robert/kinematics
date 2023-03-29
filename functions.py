@@ -130,7 +130,7 @@ def check():
                         #find the keys for the variables
                         #because this would be on the second theoretical run 
                         #there needs to be an if statement if this unknwon is dependent on the rpevious 
-                        #because im (emma) is stupid and the calculation functions dont pull directly from the 
+                        #because im (emma) stupid and the calculation functions dont pull directly from the 
                         #inputs list, the if statement is needed
                         key2 = requires[strallvar[ind1]][alt]
                         #loops through the values of the needed variables
@@ -148,7 +148,7 @@ def check():
                                           fg = 'blue')
                         answer.grid(row = 16, column = 0, sticky = 'w')
            
-    #bc im (emma) is lazy and dont want to figure out a different way...
+    #bc im (emma) lazy and dont want to figure out a different way...
     #this checks to see if there is still an unknown 
     #this unknown would have been in the inputs list before the previously solved one
     #BUT to solve this, the previously solved one had to be done first so rip 
