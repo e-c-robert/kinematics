@@ -1,4 +1,19 @@
-import math
+mport math
+
+#finds the computers machine epsilon so we can actually get a 0 answer 
+#found this out the hard way 
+def zero(ans5):
+    ep = 1
+    while True :
+        if ep+1 <=1: 
+            ep *= 2
+            break
+        else:
+            ep /= 2
+    if ans5<=ep:
+        return 0
+    else:
+        return ans5
 
 #calculation functions 
 def m_xf(key1):
