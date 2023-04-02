@@ -54,6 +54,10 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3):
 
 #main function 
 def check():
+    answer1 = tk.Label(g.window, text='     ')
+    answer1.grid(row = 16, column = 1, sticky = 'w')
+    answer2 = tk.Label(g.window, text='     ')
+    answer2.grid(row = 16, column = 1, sticky = 'w')
     #gets inputs from all boxes 
     vi = g.vientry.get()
     vf = g.vfentry.get()
