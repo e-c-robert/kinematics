@@ -14,7 +14,7 @@ def rip():
 #creates the window and its title
 window= tk.Tk()
 window.title('Projectile Motion')
-window.geometry('455x380')
+window.geometry('455x400')
 
 #instruction text placement
 inst = tk.Label(window, text='Please enter the following values.', 
