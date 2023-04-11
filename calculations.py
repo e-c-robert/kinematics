@@ -1,4 +1,4 @@
-mport math
+import math
 
 #finds the computers machine epsilon so we can actually get a 0 answer 
 #found this out the hard way 
@@ -10,7 +10,7 @@ def zero(ans5):
             break
         else:
             ep /= 2
-    if ans5<=ep:
+    if abs(ans5)<=ep:
         return 0
     else:
         return ans5
@@ -25,7 +25,8 @@ def m_xf(key1):
 
 def m_yf(key2):
     y1,v2,the,time1 = key2
-    y2 = float(y1)+ (float(v2)*float(the)*float(time1)) +(-0.5*9.81*(float(time1)**2))
+    rad = float(the)*(math.pi/180)
+    y2 = float(y1)+ (float(v2)*math.sin(rad)*float(time1)) +(-0.5*9.81*(float(time1)**2))
     return y2 
    
 def m_m(key3):
