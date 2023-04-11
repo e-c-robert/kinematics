@@ -5,23 +5,31 @@ import calculations as c
 import tkinter as tk
 
 
-#repalces 'find' with found answer from before
-def verify(keyi, ans1):
+#verifies the key to ensure that it all have integers 
+def verify(keyi, ans1, anskey,strvar, keystr):
+    #loops through the key 
     for inde, valu in enumerate(keyi):
-        if valu == 'find': 
+        #if the value in the key is 'find' and the previously found answer is the one missing here 
+        if valu == 'find' and strvar[anskey]==keystr[inde]: 
+            #replace missing vlaue in the key wiht the answer 
             keyi[inde]=ans1
-    return keyi
+            return keyi
+        #if the value in teh key is find but the previously found answer is not the one required 
+        elif valu == 'find' and strvar[anskey]!=keystr[inde] : 
+            #there is not enough infomration and that statement willbe displayed 
+            answer = tk.Label(g.window, text='Error: not enough information.', fg = 'blue')
+            answer.grid(row= 17,column=0, columnspan=2)
 
 #label placement         
 def inwindow(fcount,answer):
-    #different f count so the display does not overlap  for next unknown
+    #different f count so the display does not overlap for next unknown
     if fcount == 2:
         answer.grid(row = 16, column = 1, sticky = 'w')
     elif fcount == 1:
         answer.grid(row = 16, column = 0, sticky = 'w')
             
 #answer 
-def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3):
+def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, anskey):
     #for loop : goes through the inputs once
     for ind1, value1, in enumerate(inputs1):
         #if there is a variable to find 
@@ -41,23 +49,34 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3):
                         key2 = requires1[strallvar1[ind1]][alt]
                         #this is if an unknown was solved before as the keys dont change w the input list
                         if 'find' in key2:
-                            key2 = verify(key2, ans3)
+                            key2 = verify(key2, ans3, anskey, strallvar1, key1[alt])
                         #inputs key into correct function and zero() checks to see if the answer is less than epsilon
-                        ans3 = c.zero(functions1[ind1](key2))    
+                        ans3 = c.zero(functions1[ind1](key2))  
                         #chnages input list so the for loops dont have a time 
                         inputs1[ind1] = ans3
+                        #save the index for this answer so that I can use it for verification later 
+                        anskey = ind1
                         #answer display 
                         answer = tk.Label(g.window, text=strallvar1[ind1] + ': ' + str(ans3), fg = 'blue')
                         inwindow(fcount,answer)
                         fcount-=1
-                        return ans3
+                        return ans3, anskey
+        #for one value to find, and there is not enough information,
+        #error statement 
+        if ind1 == 9 and ans3 == '':
+            answer = tk.Label(g.window, text='Error: not enough information.', fg = 'blue')
+            answer.grid(row= 17,column=0, columnspan=2)
+            print('for why')
+            return ans3, anskey
 
 #main function 
 def check():
-    answer1 = tk.Label(g.window, text='     ')
-    answer1.grid(row = 16, column = 1, sticky = 'w')
-    answer2 = tk.Label(g.window, text='     ')
+    answer1 = tk.Label(g.window, text='                             ')
+    answer1.grid(row = 16, column = 0, sticky = 'w')
+    answer2 = tk.Label(g.window, text='                             ')
     answer2.grid(row = 16, column = 1, sticky = 'w')
+    answer = tk.Label(g.window, text='                                                                                          ', fg = 'blue')
+    answer.grid(row= 17,column=0, columnspan=2)
     #gets inputs from all boxes 
     vi = g.vientry.get()
     vf = g.vfentry.get()
@@ -109,7 +128,7 @@ def check():
 
     #functions, alternative equations for each variable will be found and done within 
     #the function 
-    functions = ['', '','', c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t,c.m_fw, c.m_m]
+    functions = ['', '','', c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
     
     #emplty list of inputs to be added in the next for loop 
     inputs = []
@@ -129,6 +148,7 @@ def check():
     
     #empty ans variable so it can be an imput for the functions
     ans = ''
-    ans = an(fcount, inputs, strallvar, strrequires, requires, functions, ans)
+    anskey = ''
+    ans,anskey = an(fcount, inputs, strallvar, strrequires, requires, functions, ans, anskey)
     if 'find' in inputs : # still?!?!?!??!?!
-       ans = an(1, inputs, strallvar, strrequires, requires, functions, ans)
+       ans,anskey = an(1, inputs, strallvar, strrequires, requires, functions, ans, anskey)
