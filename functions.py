@@ -66,7 +66,6 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, a
         if ind1 == 9 and ans3 == '':
             answer = tk.Label(g.window, text='Error: not enough information.', fg = 'blue')
             answer.grid(row= 17,column=0, columnspan=2)
-            print('for why')
             return ans3, anskey
 
 #main function 
@@ -114,6 +113,7 @@ def check():
     #instead of a count, there is a unique marker for that alt equation so that
     #we can create an if statement with that marker to toggle between the variations in the 
     # function itself
+    
     requires = {'vi': [[]], 
                 'vf': [[]], 
                 'theta': [[]], 
@@ -128,7 +128,7 @@ def check():
 
     #functions, alternative equations for each variable will be found and done within 
     #the function 
-    functions = ['', '','', c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
+    functions = [c.m_vi, c.m_vf,c.m_theta, c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
     
     #emplty list of inputs to be added in the next for loop 
     inputs = []
