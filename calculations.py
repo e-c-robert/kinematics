@@ -97,7 +97,7 @@ def m_yi(key):
     #xi = 0, xf = 2, yi = 0, yf = -4.905, t = 1, f = 2, m = 2, vf = 10.3
 def m_vi(key): 
     if key[-1] == '1':
-       Vf, theta, Xi, Yi,m,f,time, throw = key #returns wrong answer (58.something when its supposed to be 1)
+       Vf, theta, Xi, Yi,m,f,time, throw = key #returns wrong answer (58.something when its supposed to be 1) also dont have the theta for vf so like everythings wrong 
        rad = float(theta)*(math.pi/180)
        Vfx = float(Vf)*math.cos(rad)
        Vfy = float(Vf)*math.sin(rad)
@@ -106,7 +106,7 @@ def m_vi(key):
         Xf,Xi,time,f,m,throw = key #says theres something being divided by zero 
         Vo = (float(Xf) - float(Xi) - 0.5*(float(f)/float(m))*float(time)**2) / (float(time)*math.sqrt(2*(float(Xf) - float(Xi) - (float(f)/float(m))*float(time)**2)))
     elif key[-1] == '3':
-        Vf,Xi,Yi,time,theta, throw = key #returns wrong answer (19.something when its supposed to be 1)
+        Vf,Xi,Yi,time,theta, throw = key #returns wrong answer (19.something when its supposed to be 1), we dont have an input for vf theta 
         rad = float(theta)*(math.pi/180)
         Vfx = float(Vf)*math.cos(rad)
         Vfy = float(Vf)*math.sin(rad)
