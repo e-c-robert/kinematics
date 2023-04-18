@@ -92,31 +92,30 @@ def m_yi(key):
     return yi 
 
 #Andres 
-    
 
-def m_vi(key1):    
-      Vox,Voy,theta = key
-      Vo = math.sqrt(Vox**2 + Voy**2)
+#all tested using :
+    #xi = 0, xf = 2, yi = 0, yf = -4.905, t = 1, f = 2, m = 2, vf = 10.3
+def m_vi(key): 
+    if key[-1] == '1':
+       Vf, theta, Xi, Yi,m,f,time, throw = key #returns wrong answer (58.something when its supposed to be 1)
+       rad = float(theta)*(math.pi/180)
+       Vfx = float(Vf)*math.cos(rad)
+       Vfy = float(Vf)*math.sin(rad)
+       Vo = math.sqrt((Vfx - float(Xi))**2 + (Vfy - float(Yi) + 0.5*(float(f)/float(m))*float(time)**2)**2) / (1 - math.exp(-2*math.atan((Vfy - float(Yi) + 0.5*(float(f)/float(m))*float(time)**2)/(Vfx - float(Xi))))) 
+    elif key[-1] == '2':
+        Xf,Xi,time,f,m,throw = key #says theres something being divided by zero 
+        Vo = (float(Xf) - float(Xi) - 0.5*(float(f)/float(m))*float(time)**2) / (float(time)*math.sqrt(2*(float(Xf) - float(Xi) - (float(f)/float(m))*float(time)**2)))
+    elif key[-1] == '3':
+        Vf,Xi,Yi,time,theta, throw = key #returns wrong answer (19.something when its supposed to be 1)
+        rad = float(theta)*(math.pi/180)
+        Vfx = float(Vf)*math.cos(rad)
+        Vfy = float(Vf)*math.sin(rad)
+        Vo = math.sqrt((float(Vfx) - float(Xi))**2 + (float(Vfy) - float(Yi) + 0.5*-9.81*float(time)**2)**2) / (1 - math.exp(-2*math.atan((float(Vfy) - float(Yi) + 0.5*9.81*float(time)**2)/(float(Vfx) - float(Xi)))))   
+    elif key[-1] == '4':
+        Xf, Xi, Yf, Yi, time, throw = key #retruns wrong answer (9.soemthing when its suppsed to be 1)
+        Vo = math.sqrt((float(Xf) - float(Xi))**2 + (float(Yf) - float(Yi) - 0.5*(9.81)*float(time)**2)**2) / float(time)
+    elif key[-1] == '5':
+        Xf, Xi, Yf, Yi, time,m,f,throw = key #doesnt return anything 
+        Vo = math.sqrt((float(Xf) - float(Xi))**2 + (float(Yf) - float(Yi) - 0.5*(float(f)/float(m))*float(time)**2)**2) / float(time) 
 
-def m_vi(key2):  #w
-      Xf,Xi,time,f = key
-      Vo = (Xf - Xi - 0.5*f*time**2) / (time*math.sqrt(2*(Xf - Xi - f*time**2)))
-    
-def m_vi(key3):
-      Vfx,Vfy,Xi,Yi,time = key
-      Vo = math.sqrt((Vfx - Xi)**2 + (Vfy - Yi + 0.5*-9.81*time**2)**2) / (1 - math.exp(-2*math.atan((Vfy - Yi + 0.5*g*time**2)/(Vfx - Xi))))
-
- def m_vi(key4):   
-      Vfx, Vfy, Xi, Yi,m,f = key
-      Vo = sqrt((Vfx - Xi)**2 + (Vfy - Yi + 0.5*(f/m)*time**2)**2) / (1 - math.exp(-2*math.atan((Vfy - Yi + 0.5*(f/m)*time**2)/(Vfx - Xi))))   
-        
-def m_vi(key5):
-      Xf, Xi, Yf, Yi, time = key
-      Vo = math.sqrt((Xf - Xi)**2 + (Yf - Yi - 0.5*(9.81)*time**2)**2) / time
-
-def m_vi(key6):
-     Xf, Xi, Yf, Yi, time,m,f:
-     Vo = sqrt((Xf - Xi)**2 + (Yf - Yi - 0.5*(f/m)*time**2)**2) / time   
-    
-    
-    
+    return Vo
