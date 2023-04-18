@@ -95,7 +95,11 @@ def check():
     #string version of all the required variables and the number of required inputs 
     #dictionary -> keys: the missing variable ('find') : list of all alternative equations
     #inside list is a list of the required variables for that alternative
-    strrequires = {'vi': [[]], 
+    strrequires = {'vi': [['vf','theta','xi','yi','m','fw','t',7],
+                          ['xf','xi','t','fw','m',5],
+                          ['vf','xi','yi','t','theta',5],
+                          ['xf','xi','yf','yi','t',5],
+                          ['xf','xi','yf','yi','t','m','fw',7]], 
                    'vf': [[]], 
                    'theta': [[]], 
                    'xi': [['vi','theta','t','fw','m','xf', 6]], 
@@ -114,7 +118,12 @@ def check():
     #we can create an if statement with that marker to toggle between the variations in the 
     # function itself
     
-    requires = {'vi': [[]], 
+
+    requires = {'vi': [[vf,theta,xi,yi,m,fw,t,'1'],
+                       [xf,xi,t,fw,m,'2'],
+                       [vf,xi,yi,t,theta,'3'],
+                       [xf,xi,yf,yi,t,'4'],
+                       [xf,xi,yf,yi,t,m,fw,'5']], 
                 'vf': [[]], 
                 'theta': [[]], 
                 'xi': [[vi,theta,t,fw,m,xf]], 
@@ -128,7 +137,7 @@ def check():
 
     #functions, alternative equations for each variable will be found and done within 
     #the function 
-    functions = ['','','', c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
+    functions = [c.m_vi,'','', c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
     
     #emplty list of inputs to be added in the next for loop 
     inputs = []
