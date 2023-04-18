@@ -90,3 +90,33 @@ def m_yi(key):
     term2 = -0.5*a*(float(t)**2)
     yi = term1 +term2 +float(yf)
     return yi 
+
+#Andres 
+    
+
+def m_vi(key1):    
+      Vox,Voy,theta = key
+      Vo = math.sqrt(Vox**2 + Voy**2)
+
+def m_vi(key2):  #w
+      Xf,Xi,time,f = key
+      Vo = (Xf - Xi - 0.5*f*time**2) / (time*math.sqrt(2*(Xf - Xi - f*time**2)))
+    
+def m_vi(key3):
+      Vfx,Vfy,Xi,Yi,time = key
+      Vo = math.sqrt((Vfx - Xi)**2 + (Vfy - Yi + 0.5*-9.81*time**2)**2) / (1 - math.exp(-2*math.atan((Vfy - Yi + 0.5*g*time**2)/(Vfx - Xi))))
+
+ def m_vi(key4):   
+      Vfx, Vfy, Xi, Yi,m,f = key
+      Vo = sqrt((Vfx - Xi)**2 + (Vfy - Yi + 0.5*(f/m)*time**2)**2) / (1 - math.exp(-2*math.atan((Vfy - Yi + 0.5*(f/m)*time**2)/(Vfx - Xi))))   
+        
+def m_vi(key5):
+      Xf, Xi, Yf, Yi, time = key
+      Vo = math.sqrt((Xf - Xi)**2 + (Yf - Yi - 0.5*(9.81)*time**2)**2) / time
+
+def m_vi(key6):
+     Xf, Xi, Yf, Yi, time,m,f:
+     Vo = sqrt((Xf - Xi)**2 + (Yf - Yi - 0.5*(f/m)*time**2)**2) / time   
+    
+    
+    
