@@ -94,31 +94,27 @@ def m_yi(key):
     yi = term1 + term2 + float(yf)
     return yi 
 
-#Andres 
-
-#all tested using :
-    #xi = 0, xf = 2, yi = 0, yf = -4.905, t = 1, f = 2, m = 2, vf = 10.3
 def m_vi(key): 
-    if key[-1] == '1':
-       Vf, theta, Xi, Yi,m,f,time, throw = key #returns wrong answer (58.something when its supposed to be 1) also dont have the theta for vf so like everythings wrong 
-       rad = float(theta)*(math.pi/180)
-       Vfx = float(Vf)*math.cos(rad)
-       Vfy = float(Vf)*math.sin(rad)
-       Vo = math.sqrt((Vfx - float(Xi))**2 + (Vfy - float(Yi) + 0.5*(float(f)/float(m))*float(time)**2)**2) / (1 - math.exp(-2*math.atan((Vfy - float(Yi) + 0.5*(float(f)/float(m))*float(time)**2)/(Vfx - float(Xi))))) 
-    elif key[-1] == '2':
-        Xf,Xi,time,f,m,throw = key #says theres something being divided by zero 
-        Vo = (float(Xf) - float(Xi) - 0.5*(float(f)/float(m))*float(time)**2) / (float(time)*math.sqrt(2*(float(Xf) - float(Xi) - (float(f)/float(m))*float(time)**2)))
-    elif key[-1] == '3':
-        Vf,Xi,Yi,time,theta, throw = key #returns wrong answer (19.something when its supposed to be 1), we dont have an input for vf theta 
-        rad = float(theta)*(math.pi/180)
-        Vfx = float(Vf)*math.cos(rad)
-        Vfy = float(Vf)*math.sin(rad)
-        Vo = math.sqrt((float(Vfx) - float(Xi))**2 + (float(Vfy) - float(Yi) + 0.5*-9.81*float(time)**2)**2) / (1 - math.exp(-2*math.atan((float(Vfy) - float(Yi) + 0.5*9.81*float(time)**2)/(float(Vfx) - float(Xi)))))   
-    elif key[-1] == '4':
-        Xf, Xi, Yf, Yi, time, throw = key #retruns wrong answer (9.soemthing when its suppsed to be 1)
-        Vo = math.sqrt((float(Xf) - float(Xi))**2 + (float(Yf) - float(Yi) - 0.5*(9.81)*float(time)**2)**2) / float(time)
-    elif key[-1] == '5':
-        Xf, Xi, Yf, Yi, time,m,f,throw = key #doesnt return anything 
-        Vo = math.sqrt((float(Xf) - float(Xi))**2 + (float(Yf) - float(Yi) - 0.5*(float(f)/float(m))*float(time)**2)**2) / float(time) 
-
-    return Vo
+    if key[-1] == '1': #doesnt work yet 
+       fw,m,t,vf,throw = key 
+       a = math.sqrt((float(fw)/float(m))**2 + (9.81**2))
+       if float(fw) <0 :
+           a *= -1
+       vi = float(vf)-(a*float(t))
+    elif key[-1]=='2': 
+       xf,xi,t,theta,fw,m,throw = key
+       rad = math.radians(float(theta))
+       numerator = float(xf)-float(xi)-(0.5*(float(fw)/float(m))*(float(t)**2))
+       if float(theta) == 90 or float(theta) == 270:
+           vi = numerator
+       else: 
+           vi = numerator/(math.cos(rad)*float(t))
+    elif key[-1]=='3':
+       yf,yi,t,theta,throw = key
+       rad = math.radians(float(theta))
+       numerator = float(yf)-float(yi)+(0.5*9.81*(float(t)**2))
+       if float(theta) == 0 or float(theta) == 180:
+           vi = numerator
+       else: 
+           vi = numerator/(math.sin(rad)*float(t))
+    return vi
