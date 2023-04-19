@@ -8,7 +8,9 @@ def zero(ans5):
     while ((ep / 2) + 1 > 1):
         ep /= 2
         
-    if abs(ans5) <= ep:
+    if isinstance(ans5, str) == True:
+        return ans5
+    elif abs(ans5) <= ep:
         return 0
     else:
         return ans5
@@ -95,7 +97,7 @@ def m_yi(key):
     return yi 
 
 def m_vi(key): 
-    if key[-1] == '1': #doesnt work yet 
+    if key[-1] == '1': #doesnt work yet do vf first and use answer from that for this case
        fw,m,t,vf,throw = key 
        a = math.sqrt((float(fw)/float(m))**2 + (9.81**2))
        if float(fw) <0 :
@@ -106,7 +108,7 @@ def m_vi(key):
        rad = math.radians(float(theta))
        numerator = float(xf)-float(xi)-(0.5*(float(fw)/float(m))*(float(t)**2))
        if float(theta) == 90 or float(theta) == 270:
-           vi = numerator
+           vi = 'no vi in x direction'
        else: 
            vi = numerator/(math.cos(rad)*float(t))
     elif key[-1]=='3':
@@ -114,7 +116,7 @@ def m_vi(key):
        rad = math.radians(float(theta))
        numerator = float(yf)-float(yi)+(0.5*9.81*(float(t)**2))
        if float(theta) == 0 or float(theta) == 180:
-           vi = numerator
+           vi = 'no vi in y direction'
        else: 
            vi = numerator/(math.sin(rad)*float(t))
     return vi
