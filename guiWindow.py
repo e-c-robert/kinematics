@@ -121,3 +121,13 @@ note2.grid(row=13, column = 0, columnspan = 2,rowspan = 2, sticky = 'w')
 #button to close the program
 close = tk.Button(window, text='Close', command=rip)
 close.grid(row=15, column=4, sticky = 'e')
+
+# Output Labels
+answer1 = tk.Label(window, text='', fg = 'blue')
+answer1.grid(row = 16, column = 0, sticky = 'w')
+
+answer2 = tk.Label(window, text='', fg = 'blue')
+answer2.grid(row = 16, column = 1, sticky = 'w')
+
+answer = tk.Label(window, text='', fg = 'blue')
+answer.grid(row= 17,column= 0, columnspan= 2)

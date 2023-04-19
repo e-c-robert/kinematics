@@ -17,16 +17,15 @@ def verify(keyi, ans1, anskey,strvar, keystr):
         #if the value in teh key is find but the previously found answer is not the one required 
         elif valu == 'find' and strvar[anskey]!=keystr[inde] : 
             #there is not enough infomration and that statement willbe displayed 
-            answer = tk.Label(g.window, text='Error: not enough information.', fg = 'blue')
-            answer.grid(row= 17,column=0, columnspan=2)
+            g.answer['text'] = 'Error: not enough information.'
 
 #label placement         
-def inwindow(fcount,answer):
+def inwindow(fcount, text):
     #different f count so the display does not overlap for next unknown
     if fcount == 2:
-        answer.grid(row = 16, column = 1, sticky = 'w')
+        g.answer2['text'] = text
     elif fcount == 1:
-        answer.grid(row = 16, column = 0, sticky = 'w')
+        g.answer1['text'] = text
             
 #answer 
 def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, anskey):
@@ -57,25 +56,22 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, a
                         #save the index for this answer so that I can use it for verification later 
                         anskey = ind1
                         #answer display 
-                        answer = tk.Label(g.window, text=strallvar1[ind1] + ': ' + str(ans3), fg = 'blue')
-                        inwindow(fcount,answer)
+                        ansText = strallvar1[ind1] + ': ' + str(ans3)
+                        inwindow(fcount, ansText)
                         fcount-=1
                         return ans3, anskey
         #for one value to find, and there is not enough information,
         #error statement 
         if ind1 == 9 and ans3 == '':
-            answer = tk.Label(g.window, text='Error: not enough information.', fg = 'blue')
-            answer.grid(row= 17,column=0, columnspan=2)
+            g.answer['text'] = 'Error: not enough information.'
             return ans3, anskey
 
 #main function 
 def check():
-    answer1 = tk.Label(g.window, text='                             ')
-    answer1.grid(row = 16, column = 0, sticky = 'w')
-    answer2 = tk.Label(g.window, text='                             ')
-    answer2.grid(row = 16, column = 1, sticky = 'w')
-    answer = tk.Label(g.window, text='                                                                                          ', fg = 'blue')
-    answer.grid(row= 17,column=0, columnspan=2)
+    g.answer1['text'] = ''
+    g.answer2['text'] = ''
+    g.answer['text'] = ''
+    
     #gets inputs from all boxes 
     vi = g.vientry.get()
     vf = g.vfentry.get()
