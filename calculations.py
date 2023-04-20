@@ -121,6 +121,7 @@ def m_vi(key):
            vi = numerator/(math.sin(rad)*float(t))
     return vi
 
+#variation calculations you sent in the chat start here
 def m_vi(key):
     fw,m,t,vf = key   
     a = math.sqrt((fw/m)**2+9.81**2)
@@ -149,7 +150,7 @@ def m_vf(key):
     vfy = math.sqrt(vi*math.sin(th)**2+(9.81)*(yf-yi))                
     vf = math.sqrt(vfx**2+vfy**2)                 
     return vf
-#
+ 
 def m_vfx(key):
     vi,th,fw,m,t = key
     vfx = vi*math.cos(th) + (fw/m)*t
@@ -185,4 +186,19 @@ def m_t(key):
     a = math.sqrt((fw/m)**2+9.81**2)
     t = math.abs((vf-vi)/a)
     return t
+#variation calculations you sent in the chat end here
+
+
+def m_t(key):  
+    fw,m,vfx,vix = key
+    a = fw/m
+    t = vfx-vxi/-a
+    return t
+
+
+
+
+    
+    
+    
     
