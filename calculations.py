@@ -1,4 +1,4 @@
-import math
+iimport math
 
 #finds the computers machine epsilon so we can actually get a 0 answer 
 #found this out the hard way 
@@ -38,38 +38,36 @@ def m_m(key3):
     return m 
 
 def m_t(key4):
-    #if statement checks if the given numbers are for the x or y direction 
-    #the direction changes the trig and acceleration 
-    if key4[-1] == 'x':
-        vi, theta, fw, m, sf, si, s = key4
-        rad = math.radians(float(theta))
-        a = 0.5*(float(fw)/float(m))
-        b = -float(vi)*math.cos(rad)
-    
-    elif key4[-1] == 'y': 
-        vi, theta, sf, si, s = key4
-        rad = math.radians(float(theta))
-        a = -0.5*9.81
-        b = -float(vi)*math.sin(rad)
-    
-    c = float(sf) - float(si)
-    squ = (b**2) + (4*a*c)
-    square = math.sqrt(squ)
-    t1 = (b + square) / (2*a)
-    t2 = (b - square) / (2*a)
-    #if statement to check the results bc quadratic gives 2 results 
-    if t1 < 0 and t2 > 0:
-        return t2
-    
-    elif t2 < 0 and t1 > 0 :
-        return t1
-    
-    elif t2 < t1 and t2 > 0 :
-        return t2
-    
-    elif t1 < t2 and t1 > 0 :
-        return t1
-    
+    if key4[-1]=='x' or key4[-1]=='y':
+        #if statement checks if the given numbers are for the x or y direction 
+        #the direction changes the trig and acceleration 
+        if key4[-1] == 'x':
+            vi, theta, fw, m, sf, si, s = key4
+            rad = math.radians(float(theta))
+            a = 0.5*(float(fw)/float(m))
+            b = -float(vi)*math.cos(rad)
+        
+        elif key4[-1] == 'y': 
+            vi, theta, sf, si, s = key4
+            rad = math.radians(float(theta))
+            a = -0.5*9.81
+            b = -float(vi)*math.sin(rad)
+        
+        c = float(sf) - float(si)
+        squ = (b**2) + (4*a*c)
+        square = math.sqrt(squ)
+        t1 = (b + square) / (2*a)
+        t2 = (b - square) / (2*a)
+        #if statement to check the results bc quadratic gives 2 results 
+        if t1 < 0 and t2 > 0:
+            return t2
+        elif t2 < 0 and t1 > 0 :
+            return t1
+        elif t2 < t1 and t2 > 0 :
+            return t2
+        elif t1 < t2 and t1 > 0 :
+            return t1
+       
 def m_fw(key5):
     xf, xi, vi, theta, t, m = key5
     term1 = float(xf) - float(xi)
@@ -97,13 +95,7 @@ def m_yi(key):
     return yi 
 
 def m_vi(key): 
-    if key[-1] == '1': #doesnt work yet do vf first and use answer from that for this case
-       fw,m,t,vf,throw = key 
-       a = math.sqrt((float(fw)/float(m))**2 + (9.81**2))
-       if float(fw) <0 :
-           a *= -1
-       vi = float(vf)-(a*float(t))
-    elif key[-1]=='2': 
+    if key[-1]=='2': 
        xf,xi,t,theta,fw,m,throw = key
        rad = math.radians(float(theta))
        numerator = float(xf)-float(xi)-(0.5*(float(fw)/float(m))*(float(t)**2))
@@ -121,69 +113,26 @@ def m_vi(key):
            vi = numerator/(math.sin(rad)*float(t))
     return vi
 
-#variation calculations you sent in the chat start here
-def m_vi(key):
-    fw,m,t,vf = key   
-    a = math.sqrt((fw/m)**2+9.81**2)
-    vi = vf-a*t
-    return vi
 
-def m_vi(key):
-    xf,xi,t,th,fw,m = key    
-    vi = (xf-xi-0.5*(fw/m)*t**2)/(math.cos(th)*t)
-    return vi
-
-def m_vi(key):
-    yf,yi,t,th = key
-    vi = (yf-yi+0.5*9.81*t**2)/(math.sin(th)*t)
-    return vi
-
-def m_vf(key):
-    fw,m,t,vi = key
-    a = math.sqrt((fw/m)**2+9.81**2)
-    vf = vi + a*t
-    return vf
-    
 def m_vf(key):
     vi,fw,m,xi,xf,yi,yf,th = key
-    vfx = math.sqrt(vi*math.cos(th)**2+(fw/m)*(xf-xi))
-    vfy = math.sqrt(vi*math.sin(th)**2+(9.81)*(yf-yi))                
-    vf = math.sqrt(vfx**2+vfy**2)                 
+    rad = math.radians(float(th))
+    vfx = math.sqrt(((float(vi)*math.cos(rad))**2)+(2*(float(fw)/float(m))*(float(xf)-float(xi))))
+    vfy = math.sqrt(((float(vi)*math.sin(rad))**2)-(2*(9.81)*(float(yf)-float(yi))))                
+    vf = math.sqrt(vfx**2+vfy**2)  
     return vf
- 
-def m_vfx(key):
-    vi,th,fw,m,t = key
-    vfx = vi*math.cos(th) + (fw/m)*t
-    return vfx
-
-def m_vfy(key):
-    vi,th,t = key
-    vfy = vi*math.sin(th) - 9.81*t
-    return vfy
-
-def m_vfx(key):
-    vi,th,xi,xf,fw,m = key
-    vfx = math.sqrt(vi*math.cos(th)**2+2*(fw/m)*(xf-xi))
-    return vfx
     
-def m_vfy(key):
-    vi,th,yf,yi = key
-    vfy = math.sqrt(vi*math.sin(th)**2-2*9.81*(yf-yi))
-    return vfy
-    
-def m_th(key):
-    xf,xi,vi,fw,m,t = key
-    th = math.acos((xf-xi-0.5*(fw/m)*t**2)/(vi*t))
-    return th
 
 def m_th(key):
-    yf,yi,vi,t = key
-    th = math.asin((yf-yi+0.5*9.81*t**2)/(vi*t))
+    if key[-1]=='1':
+        xf,xi,vi,fw,m,t,trhow = key
+        numer = (float(xf)-float(xi)-(0.5*(float(fw)/float(m))*(float(t)**2)))
+        denom = (float(vi)*float(t))
+        th = math.acos(numer/denom)
+    elif key[-1]=='2':
+        yf,yi,vi,t,throe = key
+        numer = (float(yf)-float(yi)+(0.5*9.81*(float(t)**2)))
+        denom = (float(vi)*float(t))
+        th = math.asin(numer/denom)
+    th = math.degrees(th)
     return th
-
-def m_t(key):
-    fw,m,vi,vf = key
-    a = math.sqrt((fw/m)**2+9.81**2)
-    t = math.abs((vf-vi)/a)
-    return t
-#variation calculations you sent in the chat end here
