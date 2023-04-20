@@ -113,8 +113,8 @@ u8 = tk.Label(window, text ='kg')
 u8.grid(row =11, column=2, sticky = 'w')
 
 #notes 
-note2 = tk.Label(window, text = 'Note: Force due to wind is always in the x-direction.\nCalculator works only with a max of 2 unknowns',
-                 font = (None, 8))
+note2 = tk.Label(window, text = 'Note: Force due to wind is always in the x-direction.\nCalculator works only with a max of 2 unknowns.\n'
+                 + '1D kinematics is not supported.', font = (None, 8))
 note2.grid(row=13, column = 0, columnspan = 2,rowspan = 2, sticky = 'w')
 
 
