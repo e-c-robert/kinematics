@@ -2,22 +2,25 @@
 #code in this file directly 
 import guiWindow as g
 import calculations as c
-import tkinter as tk
 
 
 #verifies the key to ensure that it all have integers 
 def verify(keyi, ans1, anskey,strvar, keystr):
     #loops through the key 
-    for inde, valu in enumerate(keyi):
-        #if the value in the key is 'find' and the previously found answer is the one missing here 
-        if valu == 'find' and strvar[anskey]==keystr[inde]: 
-            #replace missing vlaue in the key wiht the answer 
-            keyi[inde]=ans1
-            return keyi
-        #if the value in teh key is find but the previously found answer is not the one required 
-        elif valu == 'find' and strvar[anskey]!=keystr[inde] : 
-            #there is not enough infomration and that statement willbe displayed 
-            g.answer['text'] = 'Error: not enough information.'
+    if isinstance(ans1, float) == False and isinstance(ans1,int)==False:
+        g.answer['text'] = 'Error: not enough information.'
+    else: 
+        for inde, valu in enumerate(keyi):
+            #if the value in the key is 'find' and the previously found answer is the one missing here 
+            if valu == 'find' and strvar[anskey]==keystr[inde]: 
+                #replace missing vlaue in the key wiht the answer 
+                keyi[inde]=ans1
+                return keyi
+            #if the value in teh key is find but the previously found answer is not the one required 
+            elif valu == 'find' and strvar[anskey]!=keystr[inde] : 
+                #there is not enough infomration and that statement willbe displayed 
+                g.answer['text'] = 'Error: not enough information.'
+        
 
 #label placement         
 def inwindow(fcount, text):
@@ -91,13 +94,11 @@ def check():
     #string version of all the required variables and the number of required inputs 
     #dictionary -> keys: the missing variable ('find') : list of all alternative equations
     #inside list is a list of the required variables for that alternative
-    strrequires = {'vi': [['vf','theta','xi','yi','m','fw','t',7],
-                          ['xf','xi','t','fw','m',5],
-                          ['vf','xi','yi','t','theta',5],
-                          ['xf','xi','yf','yi','t',5],
-                          ['xf','xi','yf','yi','t','m','fw',7]], 
-                   'vf': [[]], 
-                   'theta': [[]], 
+    strrequires = {'vi': [['xf','xi','t','theta','fw','m',6],
+                          ['yf','yi','t','theta',4]], 
+                   'vf': [['vi','fw','m','xi','xf','yi','yf','theta',8]], 
+                   'theta': [['xf','xi','vi','fw','m','t',6],
+                             ['yf','yi','vi','t',4]], 
                    'xi': [['vi','theta','t','fw','m','xf', 6]], 
                    'xf':[['xi','vi','theta','t','fw','m', 6]],
                    'yi': [['vi','theta','t', 'yf',4]],
@@ -115,13 +116,11 @@ def check():
     # function itself
     
 
-    requires = {'vi': [[vf,theta,xi,yi,m,fw,t,'1'],
-                       [xf,xi,t,fw,m,'2'],
-                       [vf,xi,yi,t,theta,'3'],
-                       [xf,xi,yf,yi,t,'4'],
-                       [xf,xi,yf,yi,t,m,fw,'5']], 
-                'vf': [[]], 
-                'theta': [[]], 
+    requires = {'vi': [[xf,xi,t,theta,fw,m,'2'],
+                       [yf,yi,t,theta,'3']], 
+                'vf': [[vi,fw,m,xi,xf,yi,yf,theta]], 
+                'theta': [[xf,xi,vi,fw,m,t,'1'],
+                          [yf,yi,vi,t,'2']], 
                 'xi': [[vi,theta,t,fw,m,xf]], 
                 'xf':[[xi,vi,theta,t,fw,m]],
                 'yi': [[vi,theta,t,yf]],
@@ -133,7 +132,7 @@ def check():
 
     #functions, alternative equations for each variable will be found and done within 
     #the function 
-    functions = [c.m_vi,'','', c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
+    functions = [c.m_vi,c.m_vf,c.m_th, c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
     
     #emplty list of inputs to be added in the next for loop 
     inputs = []
