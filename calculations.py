@@ -187,18 +187,3 @@ def m_t(key):
     t = math.abs((vf-vi)/a)
     return t
 #variation calculations you sent in the chat end here
-
-
-def m_t(key):  
-    fw,m,vfx,vix = key
-    a = fw/m
-    t = vfx-vxi/-a
-    return t
-
-
-
-
-    
-    
-    
-    
