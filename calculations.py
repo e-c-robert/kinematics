@@ -120,3 +120,69 @@ def m_vi(key):
        else: 
            vi = numerator/(math.sin(rad)*float(t))
     return vi
+
+def m_vi(key):
+    fw,m,t,vf = key   
+    a = math.sqrt((fw/m)**2+9.81**2)
+    vi = vf-a*t
+    return vi
+
+def m_vi(key):
+    xf,xi,t,th,fw,m = key    
+    vi = (xf-xi-0.5*(fw/m)*t**2)/(math.cos(th)*t)
+    return vi
+
+def m_vi(key):
+    yf,yi,t,th = key
+    vi = (yf-yi+0.5*9.81*t**2)/(math.sin(th)*t)
+    return vi
+
+def m_vf(key):
+    fw,m,t,vi = key
+    a = math.sqrt((fw/m)**2+9.81**2)
+    vf = vi + a*t
+    return vf
+    
+def m_vf(key):
+    vi,fw,m,xi,xf,yi,yf,th = key
+    vfx = math.sqrt(vi*math.cos(th)**2+(fw/m)*(xf-xi))
+    vfy = math.sqrt(vi*math.sin(th)**2+(9.81)*(yf-yi))                
+    vf = math.sqrt(vfx**2+vfy**2)                 
+    return vf
+#
+def m_vfx(key):
+    vi,th,fw,m,t = key
+    vfx = vi*math.cos(th) + (fw/m)*t
+    return vfx
+
+def m_vfy(key):
+    vi,th,t = key
+    vfy = vi*math.sin(th) - 9.81*t
+    return vfy
+
+def m_vfx(key):
+    vi,th,xi,xf,fw,m = key
+    vfx = math.sqrt(vi*math.cos(th)**2+2*(fw/m)*(xf-xi))
+    return vfx
+    
+def m_vfy(key):
+    vi,th,yf,yi = key
+    vfy = math.sqrt(vi*math.sin(th)**2-2*9.81*(yf-yi))
+    return vfy
+    
+def m_th(key):
+    xf,xi,vi,fw,m,t = key
+    th = math.acos((xf-xi-0.5*(fw/m)*t**2)/(vi*t))
+    return th
+
+def m_th(key):
+    yf,yi,vi,t = key
+    th = math.asin((yf-yi+0.5*9.81*t**2)/(vi*t))
+    return th
+
+def m_t(key):
+    fw,m,vi,vf = key
+    a = math.sqrt((fw/m)**2+9.81**2)
+    t = math.abs((vf-vi)/a)
+    return t
+    
