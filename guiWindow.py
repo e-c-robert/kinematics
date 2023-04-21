@@ -5,7 +5,6 @@
     # are the variables in python for the label that states that in the gui
     # u# are the units that go for each text box 
 
-
 import tkinter as tk
 
 def rip():
@@ -25,23 +24,6 @@ fi = tk.Label(window, text = "type 'find' to solve for that variable",
               font = (None, 7))
 fi.grid(row =1 , column = 1, sticky = 'news')
 
-#inital x entry placement 
-xientry = tk.Entry(window, width= 30)
-xientry.grid(row=5, column=1)
-xi = tk.Label(window, text='initial x position')
-xi.grid(row=5, column=0, sticky = 'e')
-u1 = tk.Label(window, text ='m')
-u1.grid(row =5, column=2, sticky = 'w')
-
-
-#final x entry placement 
-xfentry = tk.Entry(window, width= 30)
-xfentry.grid(row=6, column=1)
-xf = tk.Label(window, text='final x position')
-xf.grid(row=6, column=0, sticky = 'e')
-u2 = tk.Label(window, text ='m')
-u2.grid(row =6, column=2, sticky = 'w')
-
 #initial velocity entry placement
 vientry = tk.Entry(window, width= 30)
 vientry.grid(row=2, column=1)
@@ -58,7 +40,6 @@ vf.grid(row=3, column=0, sticky = 'e')
 u9 = tk.Label(window, text ='m/s')
 u9.grid(row =3, column=2, sticky = 'w')
 
-
 #angle of the velocity off of the horizon 
 tentry = tk.Entry(window, width= 30)
 tentry.grid(row=4, column=1)
@@ -66,6 +47,22 @@ theta = tk.Label(window, text='angle of initial velocity')
 theta.grid(row=4, column=0, sticky = 'e')
 u4 = tk.Label(window, text ='°')
 u4.grid(row =4, column=2, sticky = 'w', padx = 5)
+
+#inital x entry placement 
+xientry = tk.Entry(window, width= 30)
+xientry.grid(row=5, column=1)
+xi = tk.Label(window, text='initial x position')
+xi.grid(row=5, column=0, sticky = 'e')
+u1 = tk.Label(window, text ='m')
+u1.grid(row =5, column=2, sticky = 'w')
+
+#final x entry placement 
+xfentry = tk.Entry(window, width= 30)
+xfentry.grid(row=6, column=1)
+xf = tk.Label(window, text='final x position')
+xf.grid(row=6, column=0, sticky = 'e')
+u2 = tk.Label(window, text ='m')
+u2.grid(row =6, column=2, sticky = 'w')
 
 #inital y entry placement 
 yientry = tk.Entry(window, width= 30)
@@ -99,11 +96,6 @@ wind.grid(row=10, column=0, sticky = 'e')
 u8 = tk.Label(window, text ='N')
 u8.grid(row =10, column=2, sticky = 'w')
 
-
-note = tk.Label(window, text='use conventional signs for direction', fg= 'red',
-                font = (None, 8))
-note.grid(row=12, column=1)
-
 #mass entry 
 mentry = tk.Entry(window, width= 30)
 mentry.grid(row=11, column=1)
@@ -112,7 +104,11 @@ mass.grid(row=11, column=0, sticky = 'e')
 u8 = tk.Label(window, text ='kg')
 u8.grid(row =11, column=2, sticky = 'w')
 
-#notes 
+#notes
+note = tk.Label(window, text='use conventional signs for direction', fg= 'red',
+                font = (None, 8))
+note.grid(row=12, column=1)
+
 note2 = tk.Label(window, text = 'Note: Force due to wind is always in the x-direction.\nCalculator works only with a max of 2 unknowns.\n'
                  + '1D kinematics is not supported.', font = (None, 8))
 note2.grid(row=13, column = 0, columnspan = 2,rowspan = 2, sticky = 'w')

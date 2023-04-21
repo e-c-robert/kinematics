@@ -1,4 +1,4 @@
-iimport math
+import math
 
 #finds the computers machine epsilon so we can actually get a 0 answer 
 #found this out the hard way 
@@ -10,8 +10,10 @@ def zero(ans5):
         
     if isinstance(ans5, str) == True:
         return ans5
+    
     elif abs(ans5) <= ep:
         return 0
+    
     else:
         return ans5
 
@@ -38,7 +40,7 @@ def m_m(key3):
     return m 
 
 def m_t(key4):
-    if key4[-1]=='x' or key4[-1]=='y':
+    if key4[-1] == 'x' or key4[-1] == 'y':
         #if statement checks if the given numbers are for the x or y direction 
         #the direction changes the trig and acceleration 
         if key4[-1] == 'x':
@@ -61,10 +63,13 @@ def m_t(key4):
         #if statement to check the results bc quadratic gives 2 results 
         if t1 < 0 and t2 > 0:
             return t2
+        
         elif t2 < 0 and t1 > 0 :
             return t1
+        
         elif t2 < t1 and t2 > 0 :
             return t2
+        
         elif t1 < t2 and t1 > 0 :
             return t1
        
@@ -95,44 +100,46 @@ def m_yi(key):
     return yi 
 
 def m_vi(key): 
-    if key[-1]=='2': 
+    if key[-1] == '2': 
        xf,xi,t,theta,fw,m,throw = key
        rad = math.radians(float(theta))
-       numerator = float(xf)-float(xi)-(0.5*(float(fw)/float(m))*(float(t)**2))
+       numerator = float(xf) - float(xi) - (0.5*(float(fw)/float(m))*(float(t)**2))
        if float(theta) == 90 or float(theta) == 270:
            vi = 'no vi in x direction'
        else: 
            vi = numerator/(math.cos(rad)*float(t))
-    elif key[-1]=='3':
-       yf,yi,t,theta,throw = key
+    elif key[-1] == '3':
+       yf, yi, t, theta, throw = key
        rad = math.radians(float(theta))
-       numerator = float(yf)-float(yi)+(0.5*9.81*(float(t)**2))
+       numerator = float(yf) - float(yi) + (0.5*9.81*(float(t)**2))
        if float(theta) == 0 or float(theta) == 180:
            vi = 'no vi in y direction'
        else: 
            vi = numerator/(math.sin(rad)*float(t))
+    
     return vi
 
 
 def m_vf(key):
-    vi,fw,m,xi,xf,yi,yf,th = key
+    vi, fw, m, xi, xf, yi, yf, th = key
     rad = math.radians(float(th))
-    vfx = math.sqrt(((float(vi)*math.cos(rad))**2)+(2*(float(fw)/float(m))*(float(xf)-float(xi))))
-    vfy = math.sqrt(((float(vi)*math.sin(rad))**2)-(2*(9.81)*(float(yf)-float(yi))))                
+    vfx = math.sqrt(((float(vi)*math.cos(rad))**2) + (2*(float(fw)/float(m))*(float(xf) - float(xi))))
+    vfy = math.sqrt(((float(vi)*math.sin(rad))**2) - (2*(9.81)*(float(yf) - float(yi))))                
     vf = math.sqrt(vfx**2+vfy**2)  
     return vf
     
 
 def m_th(key):
-    if key[-1]=='1':
-        xf,xi,vi,fw,m,t,trhow = key
-        numer = (float(xf)-float(xi)-(0.5*(float(fw)/float(m))*(float(t)**2)))
-        denom = (float(vi)*float(t))
+    if key[-1] == '1':
+        xf, xi, vi, fw, m, t, trhow = key
+        numer = float(xf) - float(xi) - (0.5*(float(fw)/float(m))*(float(t)**2))
+        denom = float(vi)*float(t)
         th = math.acos(numer/denom)
-    elif key[-1]=='2':
-        yf,yi,vi,t,throe = key
-        numer = (float(yf)-float(yi)+(0.5*9.81*(float(t)**2)))
-        denom = (float(vi)*float(t))
+    elif key[-1] == '2':
+        yf, yi, vi, t, throe = key
+        numer = float(yf) - float(yi) + (0.5*9.81*(float(t)**2))
+        denom = float(vi)*float(t)
         th = math.asin(numer/denom)
+    
     th = math.degrees(th)
     return th

@@ -3,7 +3,6 @@
 import guiWindow as g
 import calculations as c
 
-
 #verifies the key to ensure that it all have integers 
 def verify(keyi, ans1, anskey,strvar, keystr):
     #loops through the key 
@@ -12,12 +11,13 @@ def verify(keyi, ans1, anskey,strvar, keystr):
     else: 
         for inde, valu in enumerate(keyi):
             #if the value in the key is 'find' and the previously found answer is the one missing here 
-            if valu == 'find' and strvar[anskey]==keystr[inde]: 
+            if valu == 'find' and strvar[anskey] == keystr[inde]: 
                 #replace missing vlaue in the key wiht the answer 
-                keyi[inde]=ans1
+                keyi[inde] = ans1
                 return keyi
+            
             #if the value in teh key is find but the previously found answer is not the one required 
-            elif valu == 'find' and strvar[anskey]!=keystr[inde] : 
+            elif valu == 'find' and strvar[anskey] != keystr[inde]: 
                 #there is not enough infomration and that statement willbe displayed 
                 g.answer['text'] = 'Error: not enough information.'
         
@@ -42,7 +42,7 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, a
                 #count for found variables 
                 count1 = 0
                 #loops through the inputs again to check if needed variables are filled 
-                for i,v in enumerate(inputs1):
+                for i, v in enumerate(inputs1):
                     #if the varible is in the nth (alt) equation and it is not unknown and it is not empty 
                     if strallvar1[i] in key1[alt] and v != '' and v!= 'find':
                         count1 += 1 #count plus one to keep track of what we have and what we dont have 
@@ -61,7 +61,7 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, a
                         #answer display 
                         ansText = strallvar1[ind1] + ': ' + str(ans3)
                         inwindow(fcount, ansText)
-                        fcount-=1
+                        fcount -= 1
                         return ans3, anskey
         #for one value to find, and there is not enough information,
         #error statement 
@@ -89,7 +89,7 @@ def check():
 
     #list of all variables and their string form so that i cna call the correct index in places 
     allvar = [vi, vf, theta, xi, xf, yi, yf, t, fw, m]
-    strallvar = ['vi','vf','theta','xi','xf','yi','yf','t','fw','m']
+    strallvar = ['vi', 'vf', 'theta', 'xi', 'xf', 'yi', 'yf', 't', 'fw', 'm']
 
     #string version of all the required variables and the number of required inputs 
     #dictionary -> keys: the missing variable ('find') : list of all alternative equations
@@ -116,23 +116,24 @@ def check():
     # function itself
     
 
-    requires = {'vi': [[xf,xi,t,theta,fw,m,'2'],
-                       [yf,yi,t,theta,'3']], 
-                'vf': [[vi,fw,m,xi,xf,yi,yf,theta]], 
-                'theta': [[xf,xi,vi,fw,m,t,'1'],
-                          [yf,yi,vi,t,'2']], 
-                'xi': [[vi,theta,t,fw,m,xf]], 
-                'xf':[[xi,vi,theta,t,fw,m]],
-                'yi': [[vi,theta,t,yf]],
-                'yf':[[yi,vi,theta,t]], 
-                't': [[vi,theta,fw,m,xf,xi, 'x'],
-                      [vi,theta,yf,yi, 'y']],
-                'fw':[[xf,xi,vi,theta,t,m]],
-                'm':[[fw,t,xf,xi,vi,theta]]}
+    requires = {'vi': [[xf, xi, t, theta, fw, m, '2'],
+                       [yf, yi, t, theta, '3']], 
+                'vf': [[vi, fw, m, xi, xf, yi, yf, theta]], 
+                'theta': [[xf, xi, vi, fw, m, t, '1'],
+                          [yf, yi, vi, t, '2']], 
+                'xi': [[vi, theta, t, fw, m, xf]], 
+                'xf':[[xi, vi, theta, t, fw, m]],
+                'yi': [[vi, theta, t, yf]],
+                'yf':[[yi, vi, theta, t]], 
+                't': [[vi, theta, fw, m, xf, xi, 'x'],
+                      [vi, theta, yf, yi, 'y']],
+                'fw':[[xf, xi, vi, theta, t, m]],
+                'm':[[fw, t, xf, xi, vi, theta]]}
 
     #functions, alternative equations for each variable will be found and done within 
     #the function 
-    functions = [c.m_vi,c.m_vf,c.m_th, c.m_xi,c.m_xf, c.m_yi, c.m_yf, c.m_t, c.m_fw, c.m_m]
+    functions = [c.m_vi, c.m_vf, c.m_th, c.m_xi, c.m_xf, c.m_yi, c.m_yf, c.m_t, 
+                 c.m_fw, c.m_m]
     
     #emplty list of inputs to be added in the next for loop 
     inputs = []
