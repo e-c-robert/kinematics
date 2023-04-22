@@ -1,7 +1,7 @@
 import math
 
 #finds the computers machine epsilon so we can actually get a 0 answer 
-#found this out the hard way 
+#found this out the hard way  (Emma & Sammy)
 def zero(ans5):
     ep = 1
 
@@ -17,7 +17,7 @@ def zero(ans5):
     else:
         return ans5
 
-#calculation functions 
+#calculation functions (Emma)
 def m_xf(key1):
     x1, v1, theta, time, forcew, mass = key1
     a = float(forcew) / float(mass)

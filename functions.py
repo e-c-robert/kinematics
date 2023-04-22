@@ -1,5 +1,7 @@
 #import guiWindow so that you can get the entry box inputs from the window wihtout having the 
 #code in this file directly 
+
+# Emma
 import guiWindow as g
 import calculations as c
 
@@ -25,12 +27,13 @@ def verify(keyi, ans1, anskey,strvar, keystr):
 #label placement         
 def inwindow(fcount, text):
     #different f count so the display does not overlap for next unknown
+    # Sammy
     if fcount == 2:
         g.answer2['text'] = text
     elif fcount == 1:
         g.answer1['text'] = text
             
-#answer 
+#answer (Emma)
 def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, anskey):
     #for loop : goes through the inputs once
     for ind1, value1, in enumerate(inputs1):
@@ -69,7 +72,7 @@ def an(fcount, inputs1, strallvar1, strrequires1, requires1, functions1, ans3, a
             g.answer['text'] = 'Error: not enough information.'
             return ans3, anskey
 
-#main function 
+#main function (Emma)
 def check():
     g.answer1['text'] = ''
     g.answer2['text'] = ''

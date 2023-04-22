@@ -5,6 +5,7 @@
     # are the variables in python for the label that states that in the gui
     # u# are the units that go for each text box 
 
+# Emma
 import tkinter as tk
 
 def rip():
@@ -118,7 +119,7 @@ note2.grid(row=13, column = 0, columnspan = 2,rowspan = 2, sticky = 'w')
 close = tk.Button(window, text='Close', command=rip)
 close.grid(row=15, column=4, sticky = 'e')
 
-# Output Labels
+# Output Labels (Sammy)
 answer1 = tk.Label(window, text='', fg = 'blue')
 answer1.grid(row = 16, column = 0, sticky = 'w')
 
